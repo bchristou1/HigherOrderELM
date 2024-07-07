@@ -1,4 +1,4 @@
-function resultsTest = multiCubeSigmaELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType)
+function resultsTest = multiCubeSigmaELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, hiddenNodesNo, transferFunction, datasetType)
 
 % inputTrain: The input training set
 % inputTest: The input test set

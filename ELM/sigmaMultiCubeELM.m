@@ -1,4 +1,4 @@
-function resultsTest = sigmaMultiCubeELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType)
+function resultsTest = sigmaMultiCubeELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType)
 
 % inputTrain: The input training set
 % inputTest: The input test set
@@ -18,7 +18,7 @@ function resultsTest = sigmaMultiCubeELM(inputTrain, inputTest, outputTrain, out
 id = size(inputTrain, 2);
 samplesNoTrain = size(inputTrain, 1);
 samplesNoTest = size(inputTest, 1);
-outputWeightsNo = sum(2 .^ hiddenNodesNo);
+outputWeightsNo = sum(2 .^ multiCubeOutputIds);
 
 % Contruct the classification outputs matrices
 if datasetType
@@ -26,7 +26,7 @@ if datasetType
 end
 
 % Make the necessary initializations
-inputWeights = inputRange(1) + (inputRange(2)- inputRange(1)) .* randn(hiddenNodesNo, sum(2 .^ multiCubeInputIds));
+inputWeights = inputRange(1) + (inputRange(2)- inputRange(1)) .* randn(hiddenNodesNo, id);
 inputThresholds = inputRange(1) + (inputRange(2)- inputRange(1)) .* randn(hiddenNodesNo, 1);
 HTrain = zeros(samplesNoTrain, hiddenNodesNo);
 HTest = zeros(samplesNoTest, hiddenNodesNo);

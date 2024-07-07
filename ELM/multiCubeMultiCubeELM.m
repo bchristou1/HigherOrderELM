@@ -17,7 +17,7 @@ function resultsTest = multiCubeMultiCubeELM(inputTrain, inputTest, outputTrain,
 
 samplesNoTrain = size(inputTrain, 1);
 samplesNoTest = size(inputTest, 1);
-outputWeightsNo = sum(2 .^ hiddenNodesNo);
+outputWeightsNo = sum(2 .^ multiCubeOutputIds);
 
 % Contruct the classification outputs matrices
 if type
