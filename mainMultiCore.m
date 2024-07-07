@@ -4,7 +4,7 @@ clc;
 
 % Load the dataset and set the parameters for the experiments
 loadPath; % Add project's folders to MATLAB path
-inputDatasetName = 'averageLocalizationErrorInSensorNodeLocalizationProcessReg_5FoldsCV_2Sets'; % The input dataset name without the file extension
+inputDatasetName = 'datasetName'; % The input dataset name without the file extension
 load(inputDatasetName); % The input dataset
 if exist('trainingSetCV','var') && exist('testSetCV','var')
     [inputsNo, outputsNo]  = findInputsOutputsNo(trainingSetCV{1, 1}.Properties.VarNames); % The number of neural network inputs and outputs
@@ -124,10 +124,10 @@ parfor currentExperiment = 1:experimentsNo
                 testResults{1, currentExperiment}{1, currentNetworkType} = sigmaPiSigmaPiELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, hiddenNodesNo, transferFunction, datasetType);
             end
             if strcmp(testResults{1, currentExperiment}(1, currentNetworkType).Properties.VarNames, 'loworder_multicube')
-                testResults{1, currentExperiment}{1, currentNetworkType} = sigmaMultiCubeELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
+                testResults{1, currentExperiment}{1, currentNetworkType} = sigmaMultiCubeELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
             end
             if strcmp(testResults{1, currentExperiment}(1, currentNetworkType).Properties.VarNames, 'multicube_loworder')
-                testResults{1, currentExperiment}{1, currentNetworkType} = multiCubeSigmaELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
+                testResults{1, currentExperiment}{1, currentNetworkType} = multiCubeSigmaELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, hiddenNodesNo, transferFunction, datasetType);
             end
             if strcmp(testResults{1, currentExperiment}(1, currentNetworkType).Properties.VarNames, 'multicube_multicube')
                 testResults{1, currentExperiment}{1, currentNetworkType} = multiCubeMultiCubeELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
@@ -156,10 +156,10 @@ parfor currentExperiment = 1:experimentsNo
                         testResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = sigmaPiSigmaPiELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, hiddenNodesNo, transferFunction, datasetType);
                     end
                     if strcmp(testResults{1, currentExperiment}(1, currentNetworkType).Properties.VarNames, 'loworder_multicube')
-                        testResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = sigmaMultiCubeELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
+                        testResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = sigmaMultiCubeELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
                     end
                     if strcmp(testResults{1, currentExperiment}(1, currentNetworkType).Properties.VarNames, 'multicube_loworder')
-                        testResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = multiCubeSigmaELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
+                        testResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = multiCubeSigmaELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, hiddenNodesNo, transferFunction, datasetType);
                     end
                     if strcmp(testResults{1, currentExperiment}(1, currentNetworkType).Properties.VarNames, 'multicube_multicube')
                         testResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = multiCubeMultiCubeELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
@@ -188,12 +188,12 @@ parfor currentExperiment = 1:experimentsNo
                         testResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = sigmaPiSigmaPiELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, hiddenNodesNo, transferFunction, datasetType);
                     end
                     if strcmp(testResults{1, currentExperiment}(1, currentNetworkType).Properties.VarNames, 'loworder_multicube')
-                        validationResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = sigmaMultiCubeELM(inputTrain, inputValidation, outputTrain, outputValidation, inputRange, multiCubeInputIds, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
-                        testResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = sigmaMultiCubeELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
+                        validationResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = sigmaMultiCubeELM(inputTrain, inputValidation, outputTrain, outputValidation, inputRange, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
+                        testResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = sigmaMultiCubeELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
                     end
                     if strcmp(testResults{1, currentExperiment}(1, currentNetworkType).Properties.VarNames, 'multicube_loworder')
-                        validationResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = multiCubeSigmaELM(inputTrain, inputValidation, outputTrain, outputValidation, inputRange, multiCubeInputIds, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
-                        testResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = multiCubeSigmaELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
+                        validationResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = multiCubeSigmaELM(inputTrain, inputValidation, outputTrain, outputValidation, inputRange, multiCubeInputIds, hiddenNodesNo, transferFunction, datasetType);
+                        testResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = multiCubeSigmaELM(inputTrain, inputTest, outputTrain, outputTest, inputRange, multiCubeInputIds, hiddenNodesNo, transferFunction, datasetType);
                     end
                     if strcmp(testResults{1, currentExperiment}(1, currentNetworkType).Properties.VarNames, 'multicube_multicube')
                         validationResults{1, currentExperiment}{1, currentNetworkType}{1, currentFold} = multiCubeMultiCubeELM(inputTrain, inputValidation, outputTrain, outputValidation, inputRange, multiCubeInputIds, multiCubeOutputIds, hiddenNodesNo, transferFunction, datasetType);
